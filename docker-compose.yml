@@ -1,0 +1,30 @@
+version: '3'
+services:
+  voip:
+    build:
+      context: .
+      dockerfile: Dockerfile.freeswitch
+    depends_on:
+      - postgres
+    network_mode: "bridge"
+    links:
+      - postgres:freeswitch
+    ports:
+      - "5060:5060/udp"
+    volumes:
+      - "/root/freeswitch/conf:/usr/local/freeswitch/conf"
+      - "/root/freeswitch/scripts:/usr/local/freeswitch/scripts"
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    network_mode: "bridge"
+    volumes:
+      - "/root/postgresql/data:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=123456
+    restart: unless-stopped
+

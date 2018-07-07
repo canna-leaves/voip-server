@@ -1,0 +1,38 @@
+FROM debian:jessie
+
+MAINTAINER yanggz "guozheng-yang@systechn.com"
+
+COPY sources.list /etc/apt
+
+RUN apt-get update
+
+RUN apt-get upgrade -y
+
+COPY .vimrc /root
+COPY .bashrc /root
+
+RUN apt-get -y install build-essential automake autoconf git-core wget libtool libncurses5-dev libtiff-dev libjpeg-dev zlib1g-dev libssl-dev libsqlite3-dev libpcre3-dev libspeexdsp-dev libspeex-dev libcurl4-openssl-dev libopus-dev
+
+RUN apt-get -y install curl pkg-config libldns-dev libedit-dev yasm lua5.1 lua5.1-dev libsndfile-dev
+
+RUN apt-get -y install libpq-dev tcpdump vim net-tools
+
+WORKDIR /root
+
+COPY freeswitch-1.6.20 freeswitch-1.6.20
+
+WORKDIR /root/freeswitch-1.6.20
+
+COPY freeswitch-config/modules.conf modules.conf
+
+RUN ./configure --enable-core-pgsql-support
+
+RUN make
+
+RUN make install
+
+WORKDIR /root
+ENV PATH /usr/local/freeswitch/bin:$PATH
+
+CMD ["freeswitch", "-nonat"]
+
