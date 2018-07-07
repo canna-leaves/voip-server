@@ -38,6 +38,28 @@ restart() {
     docker-compose restart
 }
 
+sh_voip() {
+    docker exec -it folic_voip_1 bash
+}
+
+fs_cli() {
+    docker exec -it folic_voip_1 fs_cli -x "sofia profile internal siptrace off"
+    docker exec -it folic_voip_1 fs_cli
+}
+
+reg() {
+    docker exec -it folic_voip_1 fs_cli -x "sofia status profile internal reg"
+}
+
+fs_cli_siptrace() {
+    docker exec -it folic_voip_1 fs_cli -x "sofia profile internal siptrace on"
+    docker exec -it folic_voip_1 fs_cli
+}
+
+fs_cli_flush() {
+    docker exec -it folic_voip_1 fs_cli -x "sofia profile internal flush_inbound_reg"
+}
+
 case "$1" in
   all)
     download_source
@@ -55,8 +77,23 @@ case "$1" in
   restart)
     restart
 	;;
+  sh)
+    sh_voip
+	;;
+  cli)
+    fs_cli
+	;;
+  reg)
+    reg
+	;;
+  trace)
+    fs_cli_siptrace
+	;;
+  flush)
+    fs_cli_flush
+	;;
   *)
-	echo "Usage: download.sh {all|download|build|start|restart}"
+	echo "Usage: download.sh {all|download|build|start|restart|sh|cli|reg|trace|flush}"
 esac
 
 exit $?
