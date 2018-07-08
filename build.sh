@@ -34,6 +34,10 @@ start() {
     docker-compose up -d
 }
 
+down() {
+    docker-compose down
+}
+
 restart() {
     docker-compose restart
 }
@@ -77,6 +81,9 @@ case "$1" in
   restart)
     restart
 	;;
+  stop)
+    down
+	;;
   sh)
     sh_voip
 	;;
@@ -93,7 +100,7 @@ case "$1" in
     fs_cli_flush
 	;;
   *)
-	echo "Usage: download.sh {all|download|build|start|restart|sh|cli|reg|trace|flush}"
+	echo "Usage: download.sh {all|download|build|start|restart|stop|sh|cli|reg|trace|flush}"
 esac
 
 exit $?
