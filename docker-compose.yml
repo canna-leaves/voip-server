@@ -6,9 +6,9 @@ services:
       dockerfile: Dockerfile.freeswitch
     depends_on:
       - postgres
-    network_mode: "bridge"
-    links:
-      - postgres:freeswitch
+    network_mode: "host"
+    extra_hosts:
+      - "freeswitch:127.0.0.1"
     ports:
       - "5060:5060/udp"
     volumes:
