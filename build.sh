@@ -64,6 +64,10 @@ fs_cli_flush() {
     docker exec -it folic_voip_1 fs_cli -x "sofia profile internal flush_inbound_reg"
 }
 
+db() {
+    docker exec -it folic_postgres_1 psql
+}
+
 case "$1" in
   all)
     download_source
@@ -99,8 +103,11 @@ case "$1" in
   flush)
     fs_cli_flush
 	;;
+  db)
+    db
+	;;
   *)
-	echo "Usage: download.sh {all|download|build|start|restart|stop|sh|cli|reg|trace|flush}"
+	echo "Usage: download.sh {all|download|build|start|restart|stop|sh|cli|reg|trace|flush|db}"
 esac
 
 exit $?
