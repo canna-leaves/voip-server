@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 WORK_DIR=$(pwd)
 DOWNLOAD_DIR=/root/.download
 FREESWITCH_DIR=$WORK_DIR/freeswitch-1.6.20
