@@ -1,0 +1,2 @@
+Dockerfile.* linguist-language=Docker
+*.sh linguist-language=Shell
