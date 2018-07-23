@@ -27,6 +27,7 @@ download_source() {
     dpkg -i $DOWNLOAD_DIR/docker-ce_18.06.0~ce~3-0~debian_amd64.deb
     download . docker-compose-Linux-x86_64 "https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64"
     download $FREESWITCH_DIR freeswitch-1.6.20.tar.gz "http://files.freeswitch.org/releases/freeswitch/freeswitch-1.6.20.tar.gz"
+    if [ ! -d $HOME/freeswitch ];then git clone https://github.com/canna-leaves/voip-server-conf.git $HOME/freeswitch;fi
     if [ ! -h /usr/bin/docker-compose ];then chmod +x $DOWNLOAD_DIR/docker-compose-Linux-x86_64; \
         ln -sf $DOWNLOAD_DIR/docker-compose-Linux-x86_64 /usr/bin/docker-compose;fi
 }
