@@ -31,6 +31,7 @@ download_source() {
 }
 
 build() {
+    docker build -t freeswitch -f Dockerfile.freeswitch .
     docker-compose build
 }
 
