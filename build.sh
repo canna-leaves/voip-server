@@ -2,6 +2,7 @@
 WORK_DIR=$(pwd)
 DOWNLOAD_DIR=/root/.download
 FREESWITCH_DIR=$WORK_DIR/freeswitch-1.6.20
+DIR_NAME=${PWD##*/}
 
 download () {
 	if [ ! -d  $DOWNLOAD_DIR ];then mkdir $DOWNLOAD_DIR;fi; \
@@ -48,29 +49,29 @@ restart() {
 }
 
 sh_voip() {
-    docker exec -it folic_voip_1 bash
+    docker exec -it "$DIR_NAME"_voip_1 bash
 }
 
 fs_cli() {
-    docker exec -it folic_voip_1 fs_cli -x "sofia profile internal siptrace off"
-    docker exec -it folic_voip_1 fs_cli
+    docker exec -it "$DIR_NAME"_voip_1 fs_cli -x "sofia profile internal siptrace off"
+    docker exec -it "$DIR_NAME"_voip_1 fs_cli
 }
 
 reg() {
-    docker exec -it folic_voip_1 fs_cli -x "sofia status profile internal reg"
+    docker exec -it "$DIR_NAME"_voip_1 fs_cli -x "sofia status profile internal reg"
 }
 
 fs_cli_siptrace() {
-    docker exec -it folic_voip_1 fs_cli -x "sofia profile internal siptrace on"
-    docker exec -it folic_voip_1 fs_cli
+    docker exec -it "$DIR_NAME"_voip_1 fs_cli -x "sofia profile internal siptrace on"
+    docker exec -it "$DIR_NAME"_voip_1 fs_cli
 }
 
 fs_cli_flush() {
-    docker exec -it folic_voip_1 fs_cli -x "sofia profile internal flush_inbound_reg"
+    docker exec -it "$DIR_NAME"_voip_1 fs_cli -x "sofia profile internal flush_inbound_reg"
 }
 
 db() {
-    docker exec -it folic_postgres_1 psql
+    docker exec -it "$DIR_NAME"_postgres_1 psql
 }
 
 case "$1" in
