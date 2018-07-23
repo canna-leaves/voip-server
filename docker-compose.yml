@@ -1,6 +1,6 @@
 version: '3'
 services:
-  voip:
+  freeswitch:
     build:
       context: .
       dockerfile: Dockerfile.freeswitch

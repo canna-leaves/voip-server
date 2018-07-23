@@ -20,8 +20,12 @@ download () {
 }
 
 download_source() {
+    apt-get update
+    apt-get install -y libltdl7 git-core vim
+    download . docker-ce_18.06.0~ce~3-0~debian_amd64.deb "https://download.docker.com/linux/debian/dists/jessie/pool/stable/amd64/docker-ce_18.06.0~ce~3-0~debian_amd64.deb"
+    dpkg -i $DOWNLOAD_DIR/docker-ce_18.06.0~ce~3-0~debian_amd64.deb
     download . docker-compose-Linux-x86_64 "https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64"
-	download $FREESWITCH_DIR freeswitch-1.6.20.tar.gz "http://files.freeswitch.org/releases/freeswitch/freeswitch-1.6.20.tar.gz"
+    download $FREESWITCH_DIR freeswitch-1.6.20.tar.gz "http://files.freeswitch.org/releases/freeswitch/freeswitch-1.6.20.tar.gz"
     if [ ! -h /usr/bin/docker-compose ];then chmod +x $DOWNLOAD_DIR/docker-compose-Linux-x86_64; \
         ln -sf $DOWNLOAD_DIR/docker-compose-Linux-x86_64 /usr/bin/docker-compose;fi
 }
@@ -72,42 +76,42 @@ case "$1" in
   all)
     download_source
     start
-	;;
+  ;;
   download)
     download_source
-	;;
+  ;;
   build)
     build
-	;;
+  ;;
   start)
     start
-	;;
+  ;;
   restart)
     restart
-	;;
+  ;;
   stop)
     down
-	;;
+  ;;
   sh)
     sh_voip
-	;;
+  ;;
   cli)
     fs_cli
-	;;
+  ;;
   reg)
     reg
-	;;
+  ;;
   trace)
     fs_cli_siptrace
-	;;
+  ;;
   flush)
     fs_cli_flush
-	;;
+  ;;
   db)
     db
-	;;
+  ;;
   *)
-	echo "Usage: download.sh {all|download|build|start|restart|stop|sh|cli|reg|trace|flush|db}"
+  echo "Usage: download.sh {all|download|build|start|restart|stop|sh|cli|reg|trace|flush|db}"
 esac
 
 exit $?

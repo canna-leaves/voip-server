@@ -8,8 +8,8 @@ RUN apt-get update
 
 RUN apt-get upgrade -y
 
-COPY .vimrc /root
-COPY .bashrc /root
+COPY vimrc /root/.vimrc
+COPY bashrc /root/.bashrc
 
 RUN apt-get -y install build-essential automake autoconf git-core wget libtool libncurses5-dev libtiff-dev libjpeg-dev zlib1g-dev libssl-dev libsqlite3-dev libpcre3-dev libspeexdsp-dev libspeex-dev libcurl4-openssl-dev libopus-dev
 
